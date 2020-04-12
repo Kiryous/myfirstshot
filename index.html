@@ -46,7 +46,7 @@ html, body {
 .shot {
   width: 100%;
   max-width: 400px;
-  padding: 10px;
+  padding: 10px 10px 50px 10px;
   border-radius: 3px;
   box-shadow: 0px 10px 6px -7px rgba(0,0,0,0.18);
   background-color: white;
@@ -55,10 +55,14 @@ html, body {
 .shot__item.--showed {
   display: flex;
 }
+  
+.shot__placeholder {
+  width: 100%;
+  padding-bottom: 100%;
+}
 
 .shot__image {
   width: 100%;
-  margin-bottom: 20px;
   padding-bottom: 100%;
   object-fit: contain;
   background-color: transparent;
@@ -139,8 +143,9 @@ html, body {
 </style>
 <body>
 <div class="container">
-  <h1 class="heading">What was your first post on Instagram? <a class="button" href="https://api.instagram.com/oauth/authorize?client_id=524010521819364&redirect_uri=https://kiryous.github.io/myfirstshot/&scope=user_profile,user_media&response_type=code">Check it out</a></h1>
+  <h1 class="heading">What was your first post on Instagram? <a class="button js-button" href="https://api.instagram.com/oauth/authorize?client_id=524010521819364&redirect_uri=https://kiryous.github.io/myfirstshot/&scope=user_profile,user_media&response_type=code">Check it out</a></h1>
   <div class="shot">
+    <div class="shot__item --showed shot__placeholder js-post-placeholder"></div>
     <div class="shot__item shot__loader js-post-loader">
       <span class="emoji monkey" role="img" aria-label="monkey"></span>
     </div>
@@ -180,6 +185,7 @@ html, body {
       return s;
     }
     var button = document.querySelector(".js-button");
+    var placeholder = document.querySelector(".js-post-placeholder");
     var post = document.querySelector(".js-post");
     var loader = document.querySelector(".js-post-loader");
     var error = document.querySelector(".js-post-error");
