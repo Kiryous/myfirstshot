@@ -52,13 +52,15 @@ html, body {
   background-color: white;
 }
   
-.shot__item.--showed {
-  display: flex;
-}
-  
-.shot__placeholder {
+.shot__placeholder, .shot__loader {
   width: 100%;
   padding-bottom: 100%;
+  display: none;
+  position: relative;
+}
+  
+.shot__item.--showed {
+  display: flex;
 }
 
 .shot__image {
@@ -78,11 +80,6 @@ html, body {
 .shot__time {
   font-family: monospace;
   opacity: 0.6;
-}
-  
-.shot__loader {
-  display: none;
-  position: relative;
 }
   
 .shot__loader.--showed {
@@ -244,6 +241,10 @@ html, body {
         contentType: false,
         success: (data, status) => {
           setLoading(false);
+          if (data.error) {
+            showError(data.error);
+            return;
+          }
           showSuccess(data);
         },
         error: (xhr, desc, err) => {
