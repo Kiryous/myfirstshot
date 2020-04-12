@@ -192,7 +192,7 @@ html, body {
     var content = document.querySelector(".js-post-content");
     var image = document.querySelector(".js-post-image");
     var caption = document.querySelector(".js-post-caption");
-    var timestamp = document.querySelector(".js-post-time");
+    var timestamp = document.querySelector(".js-post-timestamp");
     function setLoading(nextState) {
       button.classList.toggle("--hidden", nextState);
       loader.classList.toggle("--showed", nextState);
@@ -227,8 +227,8 @@ html, body {
         processData: false,
         contentType: false,
         success: (data, status) => {
-          showSuccess(data);
           setLoading(false);
+          showSuccess(data);
         },
         error: (xhr, desc, err) => {
           setLoading(false);
