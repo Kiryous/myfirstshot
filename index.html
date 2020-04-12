@@ -1,5 +1,7 @@
 <html>
-<head>My First Shot</head>
+<head>
+  <title>My First Shot</title>
+</head>
 <style>
 :root {
 --yellow: #feca57;
@@ -9,6 +11,7 @@
 margin: 0;
 padding: 0;
 box-sizing: border-box; 
+font-family: Helvetica Neue, Helvetica, Open Sans, Arial, sans-serif;
 }
 html, body {
 height: 100%;
@@ -24,10 +27,23 @@ align-items: center;
 color: var(--purple);
 font-size: 72px;
 }
+.button {
+  padding: .5em 1em;
+  background-color: transparent;
+  border: 3px solid var(--purple); 
+  font-size: 24px; 
+  font-weight: bold;
+}
+.button:active {
+  position: relative;
+  top: 3px;
+  left: 3px;
+}
 </style>
 <body>
 <div class="container">
 <h1 class="heading">Here will be a funny instagram service</h1>
+  <button class="button">Authorize</button>
 </div>
 </body>
 </html>
