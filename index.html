@@ -40,6 +40,9 @@ html, body {
   padding: 20px;
   color: var(--purple);
 }
+.footer__link {
+  color: white;
+}
 .popup {
   position: fixed;
   top: 0;
@@ -232,8 +235,8 @@ html, body {
   <div class="popup js-privacy-popup">
     <object type="text/html" data="/privacy.html"></object>
   </div>
-  <footer class="footer"><a href="privacy.html" class="js-privacy-link">Privacy Policy</a></footer>
 </div>
+<footer class="footer"><a href="privacy.html" class="footer-link js-privacy-link">Privacy Policy</a></footer>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script>
     var BACKEND_URL = "https://script.google.com/macros/s/AKfycbwX01tKYBRoNwPMRMuoZ40g8PEAxMMjr4buY4MDXdg3DyiwOQU/exec";
@@ -258,7 +261,7 @@ html, body {
       }
       return s;
     }
-    var privacyLink = document.querySelector(".js-privacy-link"):
+    var privacyLink = document.querySelector(".js-privacy-link");
     var privacyPopup = document.querySelector(".js-privacy-popup");
     privacyLink.addEventListener("click", e => {
       e.preventDefault();
