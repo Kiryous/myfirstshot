@@ -35,6 +35,23 @@ html, body {
 .action-row {
   margin-bottom: 20px;
 }
+.footer {
+  opacity: .5;
+  padding: 20px;
+  color: var(--purple);
+}
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: auto;
+  display: none;
+}
+.popup.--showed {
+  display: block;
+}
 .button {
   padding: .5em 1em;
   background-color: transparent;
@@ -212,6 +229,10 @@ html, body {
     <a class="button js-button" href="https://api.instagram.com/oauth/authorize?client_id=524010521819364&redirect_uri=https://kiryous.github.io/myfirstshot/&scope=user_profile,user_media&response_type=code">Check it out</a>
   </div>
   </div>
+  <div class="popup js-privacy-popup">
+    <object type="text/html" data="/privacy.html"></object>
+  </div>
+  <footer class="footer"><a href="privacy.html" class="js-privacy-link">Privacy Policy</a></footer>
 </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script>
@@ -237,6 +258,12 @@ html, body {
       }
       return s;
     }
+    var privacyLink = document.querySelector(".js-privacy-link"):
+    var privacyPopup = document.querySelector(".js-privacy-popup");
+    privacyLink.addEventListener("click", e => {
+      e.preventDefault();
+      privacyPopup.classList.toggle("--showed");
+    });
     var button = document.querySelector(".js-button");
     var placeholder = document.querySelector(".js-post-placeholder");
     var post = document.querySelector(".js-post");
