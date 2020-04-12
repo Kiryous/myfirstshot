@@ -236,7 +236,8 @@ html, body {
         caption.innerText = content.firstPost.caption;
       }
       timestamp.classList.add("--showed");
-      timestamp.innerText = content.firstPost.timestamp;
+      var ts = new Date(Date.parse(content.firstPost.timestamp));
+      timestamp.innerText = ts.toLocaleDateString();
       console.log("Success", content);
     }
     function showError(err) {
