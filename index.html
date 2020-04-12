@@ -257,6 +257,7 @@ html, body {
     function showSuccess(content) {
       image.src = content.firstPost.media_url;
       image.classList.add("--showed");
+      imageContainer.classList.add("--showed");
       if (content.firstPost.caption) {
         caption.classList.add("--showed");
         caption.innerText = content.firstPost.caption;
