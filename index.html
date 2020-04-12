@@ -48,7 +48,7 @@ html, body {
 </div>
   <script>
     var BACKEND_URL = "https://script.google.com/macros/s/AKfycbwX01tKYBRoNwPMRMuoZ40g8PEAxMMjr4buY4MDXdg3DyiwOQU/exec";
-    function getParameterByName() {
+    function getParameterByName(name, url) {
       if (!url) url = window.location.href;
       name = name.replace(/[\[\]]/g, "\\$&");
       var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
