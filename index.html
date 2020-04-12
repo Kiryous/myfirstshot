@@ -4,9 +4,9 @@
 </head>
 <style>
 :root {
---black: black;
---yellow: #feca57;
---purple: #5f27cd;
+--black: #f5cd79;
+--yellow: #546de5;
+--purple: #f5cd79;
 --red: red;
 }
 * {
@@ -20,10 +20,10 @@ html, body {
   background-color: var(--yellow);
 }
 .container {
-  height: 100%;
+  min-height: 100%;
   padding: 50px 20px;
   display: flex;
-  align-center: center;
+  align-items: center;
 }
   
 .heading {
@@ -43,6 +43,7 @@ html, body {
   font-size: 24px; 
   font-weight: bold;
   color: var(--black);
+  transition: .3s;
 }
 .button:hover {
   color: white;
