@@ -236,11 +236,11 @@ html, body {
       timestamp.innerText = content.firstPost.timestamp;
       console.log("Success", content);
     }
-    function showError(error) {
+    function showError(err) {
       error.classList.add("--showed");
       caption.classList.add("--showed");
-      caption.innerText = error + '. Press "Check it out" again.';
-      console.log("Error", error);
+      caption.innerText = err + '. Press "Check it out" again.';
+      console.log("Error", err);
     }
     var code = getParameterByName("code");
     if (code) {
