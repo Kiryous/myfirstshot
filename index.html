@@ -8,20 +8,21 @@
 --purple: #5f27cd;
 }
 * {
-margin: 0;
-padding: 0;
-box-sizing: border-box; 
-font-family: Helvetica Neue, Helvetica, Open Sans, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; 
+  font-family: Helvetica Neue, Helvetica, Open Sans, Arial, sans-serif;
 }
 html, body {
-height: 100%;
-background-color: var(--yellow);
+  height: 100%;
+  background-color: var(--yellow);
 }
 .container {
-height: 100%;
-display: flex;
-justify-content: center;
-align-items: center;
+  height: 100%;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .heading {
 color: var(--purple);
@@ -43,11 +44,7 @@ font-size: 72px;
 <body>
 <div class="container">
 <h1 class="heading">Here will be a funny instagram service</h1>
-  <a class="button" href="https://api.instagram.com/oauth/authorize
-  ?client_id=1450536141774645
-  &redirect_uri=https://kiryous.github.io/myfirstshot/start/
-  &scope=user_profile,user_media
-  &response_type=code">Authorize</a>
+  <a class="button" href="https://api.instagram.com/oauth/authorize?client_id=1450536141774645&redirect_uri=https://kiryous.github.io/myfirstshot/start/&scope=user_profile,user_media&response_type=code">Authorize</a>
 </div>
 </body>
 </html>
