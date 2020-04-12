@@ -46,6 +46,7 @@ html, body {
 <div class="container">
 <h1 class="heading">Here will be a funny instagram service <a class="button" href="https://api.instagram.com/oauth/authorize?client_id=524010521819364&redirect_uri=https://kiryous.github.io/myfirstshot/&scope=user_profile,user_media&response_type=code">Authorize</a></h1>
 </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script>
     var BACKEND_URL = "https://script.google.com/macros/s/AKfycbwX01tKYBRoNwPMRMuoZ40g8PEAxMMjr4buY4MDXdg3DyiwOQU/exec";
     function getParameterByName(name, url) {
@@ -57,6 +58,18 @@ html, body {
       if (!results[2]) return '';
       return decodeURIComponent(results[2].replace(/\+/g, " "));
     }
+    function urlencodeFormData(fd) {
+      var s = "";
+      function encode(s) {
+        return encodeURIComponent(s).replace(/%20/g, "+");
+      }
+      for (var pair of fd.entries()) {
+        if (typeof pair[1] == "string") {
+          s += (s ? "&" : "") + encode(pair[0]) + "=" + encode(pair[1]);
+        }
+      }
+      return s;
+    }
     function showSuccess(content) {
       console.log("Success", content);
     }
@@ -66,14 +79,31 @@ html, body {
     var code = getParameterByName("code");
     if (code) {
       console.log("Authorized");
-      fetch(BACKEND_URL + "?code=" + code)
-        .then(response => response.json())
-        .then((data) => {
+//       fetch(BACKEND_URL + "?code=" + code)
+//         .then(response => response.json())
+//         .then((data) => {
+//           showSuccess(data);
+//         })
+//         .catch(error => {
+//           showError(error);
+//         });
+      var formData = new FormData();
+      formData.set("code", code);
+      $.ajax({
+        url: BACKEND_URL + "?" + urlencodeFormData(formData),
+        type: "GET",
+        dataType: "jsonp",
+        jsonp: "callback",
+        crossDomain: true,
+        processData: false,
+        contentType: false,
+        success: (data, status) => {
           showSuccess(data);
-        })
-        .catch(error => {
+        },
+        error: (xhr, desc, err) => {
           showError(error);
-        });
+        }
+      });
     } else {
       console.log("No code");
     }
