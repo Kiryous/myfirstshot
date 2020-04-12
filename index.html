@@ -65,7 +65,7 @@ html, body {
   background-color: white;
 }
   
-.shot__placeholder, .shot__loader {
+.shot__placeholder, .shot__loader, .shot__image-container {
   width: 100%;
   padding-bottom: 100%;
   display: none;
@@ -77,6 +77,9 @@ html, body {
 }
 
 .shot__image {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   object-fit: contain;
   background-color: transparent;
@@ -181,7 +184,9 @@ html, body {
       <span class="emoji bomb" role="img" aria-label="bomb"></span>
     </div>
     <div class="shot__content js-post-content">
-      <img src="" class="shot__item shot__image js-post-image" /> 
+      <div class="shot__item shot__image-container js-post-image-container">
+        <img src="" class="shot__item shot__image js-post-image" /> 
+      </div>
       <!--   TODO: video     -->
       <p class="shot__item shot__caption js-post-caption"></p>
       <p class="shot__item shot__time js-post-timestamp"></p>
@@ -219,14 +224,15 @@ html, body {
     var error = document.querySelector(".js-post-error");
     var content = document.querySelector(".js-post-content");
     var image = document.querySelector(".js-post-image");
+    var imageContainer = document.querySelector(".js-post-image-container");
     var caption = document.querySelector(".js-post-caption");
     var timestamp = document.querySelector(".js-post-timestamp");
     function setLoading(nextState) {
       placeholder.classList.remove("--showed");
       button.classList.toggle("--hidden", nextState);
       loader.classList.toggle("--showed", nextState);
-      caption.classList.add("--showed");
-      caption.innerText = "Loading... It may take a couple of minutes";
+      caption.classList[nextState ? "add" : "remove"]("--showed");
+      caption.innerText = nextState ? "Loading... It may take a couple of minutes" : "";
     }
     function showSuccess(content) {
       image.src = content.firstPost.media_url;
