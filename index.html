@@ -231,9 +231,11 @@ html, body {
       timestamp.innerText = content.firstPost.timestamp;
       console.log("Success", content);
     }
-    function showError(e) {
+    function showError(error) {
       error.classList.add("--showed");
-      console.log("Error", e);
+      caption.classList.add("--showed");
+      caption.innerText = error + '. Press "Check it out" again.';
+      console.log("Error", error);
     }
     var code = getParameterByName("code");
     if (code) {
