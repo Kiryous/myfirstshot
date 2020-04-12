@@ -224,6 +224,8 @@ html, body {
       placeholder.classList.remove("--showed");
       button.classList.toggle("--hidden", nextState);
       loader.classList.toggle("--showed", nextState);
+      caption.classList.add("--showed");
+      caption.innerText = "Loading... It may take a couple of minutes";
     }
     function showSuccess(content) {
       image.src = content.firstPost.media_url;
