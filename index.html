@@ -21,6 +21,16 @@ html, body {
 }
 .container {
   padding: 50px 20px;
+  display: flex;
+}
+  
+@media (max-width: 700px) {
+  .container {
+    flex-direction: column;  
+  }
+  .post {
+    order: 1;
+  }
 }
 .heading {
   color: var(--purple);
@@ -169,10 +179,6 @@ html, body {
 </style>
 <body>
 <div class="container">
-  <h1 class="heading">What was your first post on Instagram?</h1>
-  <div class="action-row">
-    <a class="button js-button" href="https://api.instagram.com/oauth/authorize?client_id=524010521819364&redirect_uri=https://kiryous.github.io/myfirstshot/&scope=user_profile,user_media&response_type=code">Check it out</a>
-  </div>
     <div class="shot">
     <div class="shot__item --showed shot__placeholder js-post-placeholder">
       <span class="emoji what" role="img" aria-label="what"></span>
@@ -191,6 +197,12 @@ html, body {
       <p class="shot__item shot__caption js-post-caption"></p>
       <p class="shot__item shot__time js-post-timestamp"></p>
     </div>
+  </div>
+    <div>
+  <h1 class="heading">What was your first post on Instagram?</h1>
+  <div class="action-row">
+    <a class="button js-button" href="https://api.instagram.com/oauth/authorize?client_id=524010521819364&redirect_uri=https://kiryous.github.io/myfirstshot/&scope=user_profile,user_media&response_type=code">Check it out</a>
+  </div>
   </div>
 </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
