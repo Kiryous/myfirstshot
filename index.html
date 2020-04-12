@@ -18,8 +18,7 @@ html, body {
   background-color: var(--yellow);
 }
 .container {
-  height: 100%;
-  padding: 100px 20px;
+  padding: 50px 20px;
 }
 .heading {
   color: var(--purple);
@@ -39,6 +38,10 @@ html, body {
   top: 3px;
   left: 3px;
 }
+.button.--hidden {
+  pointer-events: none;
+  opacity: 0.5;
+}
   
 .shot {
   width: 100%;
@@ -49,12 +52,8 @@ html, body {
   background-color: white;
 }
   
-.shot__item {
-  display: none;
-}
-  
 .shot__item.--showed {
-  display: block;
+  display: flex;
 }
 
 .shot__image {
@@ -63,6 +62,7 @@ html, body {
   padding-bottom: 100%;
   object-fit: contain;
   background-color: transparent;
+  border: 1px solid rgba(0,0,0,0.2);
 }
   
 .shot__caption {
@@ -77,16 +77,23 @@ html, body {
 }
   
 .shot__loader {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: none;
+  position: relative;
+}
+  
+.shot__loader.--showed {
+  display: block;
 }
 
 .emoji {
-    font-size: calc(100px + 4vw);
-    min-width: 1.4em;
-    margin: 0.3em 0.4em;
-    text-align: center;
+  font-size: calc(100px + 4vw);
+  min-width: 1.4em;
+  margin: 0.3em 0.4em;
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .emoji::after {
@@ -107,6 +114,10 @@ html, body {
     --emoji: '💥';
     animation-name: twoFrames;
     animation-duration: 2s;
+}
+  
+.shot__item {
+  display: none;
 }
 
 @keyframes twoFrames {
@@ -137,7 +148,7 @@ html, body {
       <span class="emoji bomb" role="img" aria-label="bomb"></span>
     </div>
     <div class="shot__content js-post-content">
-      <img src="shot__item shot__image js-post-image"/> 
+      <img src="" class="shot__item shot__image js-post-image" /> 
       <!--   TODO: video     -->
       <p class="shot__item shot__caption js-post-caption"></p>
       <p class="shot__item shot__time js-post-timestamp"></p>
@@ -168,6 +179,7 @@ html, body {
       }
       return s;
     }
+    var button = document.querySelector(".js-button");
     var post = document.querySelector(".js-post");
     var loader = document.querySelector(".js-post-loader");
     var error = document.querySelector(".js-post-error");
@@ -176,6 +188,7 @@ html, body {
     var caption = document.querySelector(".js-post-caption");
     var timestamp = document.querySelector(".js-post-time");
     function setLoading(nextState) {
+      button.classList.toggle("--hidden", nextState);
       loader.classList.toggle("--showed", nextState);
     }
     function showSuccess(content) {
