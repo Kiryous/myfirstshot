@@ -19,14 +19,12 @@ html, body {
 }
 .container {
   height: 100%;
-  padding: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  padding: 100px 20px;
 }
 .heading {
   color: var(--purple);
   font-size: 72px;
+  margin-bottom: 20px;
 }
 .button {
   padding: .5em 1em;
@@ -41,10 +39,110 @@ html, body {
   top: 3px;
   left: 3px;
 }
+  
+.shot {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px;
+  border-radius: 3px;
+  box-shadow: 0px 10px 6px -7px rgba(0,0,0,0.18);
+  background-color: white;
+}
+  
+.shot__item {
+  display: none;
+}
+  
+.shot__item.--showed {
+  display: block;
+}
+
+.shot__image {
+  width: 100%;
+  margin-bottom: 20px;
+  padding-bottom: 100%;
+  object-fit: contain;
+  background-color: transparent;
+}
+  
+.shot__caption {
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-family: monospace;
+}
+  
+.shot__time {
+  font-family: monospace;
+  opacity: 0.6;
+}
+  
+.shot__loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.emoji {
+    font-size: calc(100px + 4vw);
+    min-width: 1.4em;
+    margin: 0.3em 0.4em;
+    text-align: center;
+}
+
+.emoji::after {
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+.monkey::after {
+    content: '🙈';
+    --emoji-1: '🙉';
+    --emoji-2: '🙊';
+    animation-name: threeFrames;
+    animation-duration: 2s;
+}
+
+.bomb::after {
+    content: '💣';
+    --emoji: '💥';
+    animation-name: twoFrames;
+    animation-duration: 2s;
+}
+
+@keyframes twoFrames {
+    50% {
+        content: var(--emoji);
+    }
+}
+
+@keyframes threeFrames {
+    33.333% {
+        content: var(--emoji-1);
+    }
+
+    66.666% {
+        content: var(--emoji-2);
+    }
+}
+
 </style>
 <body>
 <div class="container">
-<h1 class="heading">Here will be a funny instagram service <a class="button" href="https://api.instagram.com/oauth/authorize?client_id=524010521819364&redirect_uri=https://kiryous.github.io/myfirstshot/&scope=user_profile,user_media&response_type=code">Authorize</a></h1>
+  <h1 class="heading">What was your first post on Instagram? <a class="button" href="https://api.instagram.com/oauth/authorize?client_id=524010521819364&redirect_uri=https://kiryous.github.io/myfirstshot/&scope=user_profile,user_media&response_type=code">Check it out</a></h1>
+  <div class="shot">
+    <div class="shot__item shot__loader js-post-loader">
+      <span class="emoji monkey" role="img" aria-label="monkey"></span>
+    </div>
+    <div class="shot__item shot__loader js-post-error">
+      <span class="emoji bomb" role="img" aria-label="bomb"></span>
+    </div>
+    <div class="shot__content js-post-content">
+      <img src="shot__item shot__image js-post-image"/> 
+      <!--   TODO: video     -->
+      <p class="shot__item shot__caption js-post-caption"></p>
+      <p class="shot__item shot__time js-post-timestamp"></p>
+    </div>
+  </div>
 </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script>
@@ -70,23 +168,35 @@ html, body {
       }
       return s;
     }
+    var post = document.querySelector(".js-post");
+    var loader = document.querySelector(".js-post-loader");
+    var error = document.querySelector(".js-post-error");
+    var content = document.querySelector(".js-post-content");
+    var image = document.querySelector(".js-post-image");
+    var caption = document.querySelector(".js-post-caption");
+    var timestamp = document.querySelector(".js-post-time");
+    function setLoading(nextState) {
+      loader.classList.toggle("--showed", nextState);
+    }
     function showSuccess(content) {
+      image.src = content.firstPost.media_url;
+      image.classList.add("--showed");
+      if (content.firstPost.caption) {
+        caption.classList.add("--showed");
+        caption.innerText = content.firstPost.caption;
+      }
+      timestamp.classList.add("--showed");
+      timestamp.innerText = content.firstPost.timestamp;
       console.log("Success", content);
     }
     function showError(e) {
+      error.classList.add("--showed");
       console.log("Error", e);
     }
     var code = getParameterByName("code");
     if (code) {
       console.log("Authorized");
-//       fetch(BACKEND_URL + "?code=" + code)
-//         .then(response => response.json())
-//         .then((data) => {
-//           showSuccess(data);
-//         })
-//         .catch(error => {
-//           showError(error);
-//         });
+      setLoading(true);
       var formData = new FormData();
       formData.set("code", code);
       $.ajax({
@@ -99,8 +209,10 @@ html, body {
         contentType: false,
         success: (data, status) => {
           showSuccess(data);
+          setLoading(false);
         },
         error: (xhr, desc, err) => {
+          setLoading(false);
           showError(err);
         }
       });
