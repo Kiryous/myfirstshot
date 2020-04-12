@@ -57,7 +57,7 @@ body {
   overflow: auto;
   display: none;
   padding: 50px 20px;
-  color: var(--purple);
+  background: white;
 }
 .popup.--showed {
   display: block;
@@ -240,6 +240,8 @@ body {
   </div>
   </div>
   <div class="popup js-privacy-popup">
+    <div class="js-privacy-popup-content"></div>
+    <a class="button js-privacy-close">Close</a>
   </div>
 </div>
 <footer class="footer"><a href="privacy.html" class="footer-link js-privacy-link">Privacy Policy</a></footer>
@@ -268,13 +270,18 @@ body {
       return s;
     }
     var privacyLink = document.querySelector(".js-privacy-link");
+    var privacyClose = document.querySelector(".js-privacy-close");
     var privacyPopup = document.querySelector(".js-privacy-popup");
+    var privacyPopupContent = document.querySelector(".js-privacy-popup-content");
+    privacyClose.addEventListener("click", e => {
+      privacyPopup.classList.toggle("--showed");
+    });
     privacyLink.addEventListener("click", e => {
       e.preventDefault();
       fetch("privacy.html")
         .then((response) => response.text())
         .then((html) => {
-            privacyPopup.innerHTML = html;
+            privacyPopupContent.innerHTML = html;
         })
         .catch((error) => {
             console.warn(error);
