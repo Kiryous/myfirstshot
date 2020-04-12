@@ -46,5 +46,37 @@ html, body {
 <div class="container">
 <h1 class="heading">Here will be a funny instagram service <a class="button" href="https://api.instagram.com/oauth/authorize?client_id=686145818807598&redirect_uri=https://kiryous.github.io/myfirstshot/start/&scope=user_profile,user_media&response_type=code">Authorize</a></h1>
 </div>
+  <script>
+    var BACKEND_URL = "https://script.google.com/macros/s/AKfycbwX01tKYBRoNwPMRMuoZ40g8PEAxMMjr4buY4MDXdg3DyiwOQU/exec";
+    function getParameterByName() {
+      if (!url) url = window.location.href;
+      name = name.replace(/[\[\]]/g, "\\$&");
+      var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+          results = regex.exec(url);
+      if (!results) return null;
+      if (!results[2]) return '';
+      return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+    function showSuccess(content) {
+      console.log("Success", content);
+    }
+    function showError(e) {
+      console.log("Error", e);
+    }
+    var code = getParameterByName("code");
+    if (code) {
+      console.log("Authorized");
+      fetch(BACKEND_URL + "?code=" + code)
+        .then(response => response.json())
+        .then((data) => {
+          showSuccess(data);
+        })
+        .catch(error => {
+          showError(error);
+        });
+    } else {
+      console.log("No code");
+    }
+  </script>
 </body>
 </html>
