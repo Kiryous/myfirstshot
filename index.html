@@ -4,8 +4,10 @@
 </head>
 <style>
 :root {
+--black: black;
 --yellow: #feca57;
 --purple: #5f27cd;
+--red: red;
 }
 * {
   margin: 0;
@@ -28,15 +30,20 @@ html, body {
 .button {
   padding: .5em 1em;
   background-color: transparent;
-  border: 3px solid var(--purple); 
+  border: 3px solid var(--black); 
   font-size: 24px; 
   font-weight: bold;
-  color: var(--purple);
+  color: var(--black);
+}
+.button:hover {
+  background: var(--black);
 }
 .button:active {
   position: relative;
   top: 3px;
   left: 3px;
+  color: white;
+  background-color: var(--red);
 }
 .button.--hidden {
   pointer-events: none;
@@ -153,8 +160,11 @@ html, body {
 </style>
 <body>
 <div class="container">
-  <h1 class="heading">What was your first post on Instagram? <a class="button js-button" href="https://api.instagram.com/oauth/authorize?client_id=524010521819364&redirect_uri=https://kiryous.github.io/myfirstshot/&scope=user_profile,user_media&response_type=code">Check it out</a></h1>
-  <div class="shot">
+  <h1 class="heading">What was your first post on Instagram?</h1>
+  <div>
+    <a class="button js-button" href="https://api.instagram.com/oauth/authorize?client_id=524010521819364&redirect_uri=https://kiryous.github.io/myfirstshot/&scope=user_profile,user_media&response_type=code">Check it out</a>
+  </div>
+    <div class="shot">
     <div class="shot__item --showed shot__placeholder js-post-placeholder">
       <span class="emoji what" role="img" aria-label="what"></span>
     </div>
