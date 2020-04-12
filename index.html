@@ -122,12 +122,10 @@ html, body {
   transform: translate(-50%, -50%);
 }
   
-.what {
-  &:after {
-    content: "🤔";
-    animation-name: mirror;
-    animation-duration: 2s;
-  }
+.what::after {
+  content: "🤔";
+  animation-name: mirror;
+  animation-duration: 2s;
 }
 
 .emoji::after {
